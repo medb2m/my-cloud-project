@@ -79,19 +79,39 @@ pipeline {
             steps {
                 echo 'Building and Pushing Docker Images to Docker Hub...'
                 script {
-                    docker.withRegistry(DOCKER_REGISTRY, 'docker-hub') {
-                        docker.build("matrixuv/backend:latest", 'backend/').push()
-                        docker.build("matrixuv/frontend:latest", 'frontend/').push()
-                    }
+                    try {
+        docker.withRegistry(DOCKER_REGISTRY, 'docker-hub') {
+            docker.build("matrixuv/backend:latest", 'backend/').push()
+            docker.build("matrixuv/frontend:latest", 'frontend/').push()
+        }
+    } catch (Exception e) {
+        echo "Error occurred during Docker Build and Push: ${e.message}"
+        currentBuild.result = 'FAILURE'
+        throw e
+    }
                 }
             }
         }
-        stage('Deploy with Docker Compose') {
+        /*stage('Deploy with Docker Compose') {
             steps {
                 echo 'Deploying with Docker Compose...'
                 sh 'docker-compose -f docker/docker-compose.yml up -d'
             }
+        }*/
+        stage('Deploy with Docker Compose') {
+    steps {
+        echo 'Deploying with Docker Compose...'
+        script {
+            try {
+                sh 'docker-compose -f docker/docker-compose.yml up -d'
+            } catch (Exception e) {
+                echo "Deployment failed: ${e.message}"
+                currentBuild.result = 'FAILURE'
+                throw e
+            }
         }
+    }
+}
     }
 
     post {
