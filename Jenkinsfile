@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Pulling code from GitHub...'
                 git branch: 'main',
-                    url: 'https://github.com/meb2m/my-fullstack-app.git'
+                    url: 'https://github.com/medb2m/my-cloud-project.git'
             }
         }
         stage('Build Backend') {
