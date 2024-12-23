@@ -8,7 +8,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout c') {
             steps {
                 echo 'Pulling code from GitHub...'
                 git branch: 'main',
