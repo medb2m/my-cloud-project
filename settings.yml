@@ -1,0 +1,16 @@
+<settings>
+    <mirrors>
+        <mirror>
+            <id>nexus</id>
+            <mirrorOf>*</mirrorOf>
+            <url>http://77.37.125.190:8081/repository/maven-releases</url>
+        </mirror>
+    </mirrors>
+    <servers>
+        <server>
+            <id>nexus</id>
+            <username>admin</username>
+            <password>Medb2121.</password>
+        </server>
+    </servers>
+</settings>

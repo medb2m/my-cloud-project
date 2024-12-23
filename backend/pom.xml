@@ -47,6 +47,28 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<!-- Nexus -->
+	<distributionManagement>
+    <repository>
+        <id>deploymentRepo</id>
+        <name>Nexus Repository</name>
+        <url>http://77.37.125.190:8081/repository/maven-snapshots/</url>
+    </repository>
+    <snapshotRepository>
+        <id>deploymentRepo</id>
+        <name>Nexus Snapshot Repository</name>
+        <url>http://77.37.125.190:8081/repository/maven-snapshots/</url>
+    </snapshotRepository>
+	</distributionManagement>
+
+	<!-- SonarQube -->
+	<plugins>
+    <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>3.9.1.2184</version>
+    </plugin>
+	</plugins>
 
 	<build>
 		<plugins>
@@ -55,6 +77,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		
 	</build>
 
 </project>
