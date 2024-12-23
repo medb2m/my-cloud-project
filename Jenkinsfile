@@ -103,7 +103,7 @@ pipeline {
         echo 'Deploying with Docker Compose...'
         script {
             try {
-                sh 'docker-compose -f docker/docker-compose.yml up -d'
+                sh 'docker-compose -f docker-compose.yml up -d'
             } catch (Exception e) {
                 echo "Deployment failed: ${e.message}"
                 currentBuild.result = 'FAILURE'
