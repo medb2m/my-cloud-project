@@ -5,7 +5,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "8089:8089"
+      - "9090:8089""
     depends_on:
       - mysql
     environment:
@@ -19,15 +19,15 @@ services:
     build:
       context: ./frontend
     ports:
-      - "8088:8088"
+      - "9091:80"
     environment:
-      API_URL: http://localhost:8089/api
+      API_URL: http://backend:8089/api
     networks:
       - app-network
 
   mysql:
     image: mysql:8.0
-    container_name: mysql
+    container_name: mycloud_mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -35,7 +35,7 @@ services:
       MYSQL_USER: devops_user
       MYSQL_PASSWORD: devops_password
     ports:
-      - "3307:3306"
+      - "3308:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
