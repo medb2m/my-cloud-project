@@ -2,6 +2,8 @@ FROM node:20 AS builder
 
 WORKDIR /app
 
+ENV API_URL=http://77.37.125.190:9090/api
+
 COPY package*.json ./
 RUN npm install
 
