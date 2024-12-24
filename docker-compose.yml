@@ -5,7 +5,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "9092:8089" # Fixed extra quotation
+      - "8087:8089" # Fixed extra quotation
     depends_on:
       - mysql
     environment:
