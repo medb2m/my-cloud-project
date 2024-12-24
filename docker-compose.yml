@@ -5,11 +5,11 @@ services:
     build:
       context: ./backend
     ports:
-      - "0.0.0.0:9090:8089""
+      - "9090:8089" # Fixed extra quotation
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/testdb1
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/testdb1" # Quoted value
       SPRING_DATASOURCE_USERNAME: devops_user
       SPRING_DATASOURCE_PASSWORD: devops_password
     networks:
@@ -19,9 +19,9 @@ services:
     build:
       context: ./frontend
     ports:
-      - "0.0.0.0:9091:80"
+      - "9091:80"
     environment:
-      API_URL: http://backend:8089/api
+      API_URL: "http://backend:8089/api"
     networks:
       - app-network
 
@@ -35,7 +35,7 @@ services:
       MYSQL_USER: devops_user
       MYSQL_PASSWORD: devops_password
     ports:
-      - "0.0.0.0:3308:3306"
+      - "3308:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
@@ -46,3 +46,4 @@ volumes:
 
 networks:
   app-network:
+    name: mycloud_app_network
