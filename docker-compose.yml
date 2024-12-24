@@ -5,11 +5,11 @@ services:
     build:
       context: ./backend
     ports:
-      - "9090:8089""
+      - "0.0.0.0:9090:8089""
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/devops
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/testdb1
       SPRING_DATASOURCE_USERNAME: devops_user
       SPRING_DATASOURCE_PASSWORD: devops_password
     networks:
@@ -19,7 +19,7 @@ services:
     build:
       context: ./frontend
     ports:
-      - "9091:80"
+      - "0.0.0.0:9091:80"
     environment:
       API_URL: http://backend:8089/api
     networks:
@@ -35,7 +35,7 @@ services:
       MYSQL_USER: devops_user
       MYSQL_PASSWORD: devops_password
     ports:
-      - "3308:3306"
+      - "0.0.0.0:3308:3306"
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
