@@ -76,8 +76,7 @@ pipeline {
                         sh "docker pull ${MYSQL_IMAGE}:${IMAGE_TAG} && docker tag ${MYSQL_IMAGE}:${IMAGE_TAG} ${MYSQL_IMAGE}:${IMAGE_TAG} && docker push ${MYSQL_IMAGE}:${IMAGE_TAG}"
                         sh "docker pull ${GRAFANA_IMAGE}:${IMAGE_TAG} && docker tag ${GRAFANA_IMAGE}:${IMAGE_TAG} ${GRAFANA_IMAGE}:${IMAGE_TAG} && docker push ${GRAFANA_IMAGE}:${IMAGE_TAG}"
                         sh "docker pull ${PROMETHEUS_IMAGE}:${IMAGE_TAG} && docker tag ${PROMETHEUS_IMAGE}:${IMAGE_TAG} ${PROMETHEUS_IMAGE}:${IMAGE_TAG} && docker push ${PROMETHEUS_IMAGE}:${IMAGE_TAG}"
-                        sh "docker pull ${NEXUS_IMAGE}:${IMAGE_TAG} && docker tag ${NEXUS_IMAGE}:${IMAGE_TAG} ${NEXUS_IMAGE}:${IMAGE_TAG} && docker push ${NEXUS_IMAGE}:${IMAGE_TAG}"
-                        sh "docker pull ${SONARQUBE_IMAGE}:${IMAGE_TAG} && docker tag ${SONARQUBE_IMAGE}:${IMAGE_TAG} ${SONARQUBE_IMAGE}:${IMAGE_TAG} && docker push ${SONARQUBE_IMAGE}:${IMAGE_TAG}"
+         
                     }
                 }
             }
@@ -97,8 +96,6 @@ pipeline {
                         docker rm -f mycloud_mysql || true
                         docker rm -f mycloud_prometheus || true
                         docker rm -f mycloud_grafana || true
-                        docker rm -f mycloud_nexus || true
-                        docker rm -f mycloud_sonarqube || true
                         '''
 
                         // Step 2: Remove the network (if it exists)
