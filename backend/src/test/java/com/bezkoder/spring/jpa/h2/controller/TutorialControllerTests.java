@@ -36,6 +36,11 @@ class TutorialControllerTests {
     }
 
     @Test
+    public void testExample() {
+        assertTrue(true);
+    }
+
+    @Test
     void testGetAllTutorials() {
         // Arrange
         List<Tutorial> tutorials = new ArrayList<>();
