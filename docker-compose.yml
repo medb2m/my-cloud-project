@@ -5,12 +5,16 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    container_name: mycloud_backend
+    labels:
+      - "app=mycloud"
+      - "service=backend"
     ports:
-      - "8087:8089" # Fixed extra quotation
+      - "8087:8089"
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/devops" # Quoted value
+      SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/devops"
       SPRING_DATASOURCE_USERNAME: devops_user
       SPRING_DATASOURCE_PASSWORD: devops_password
     networks:
@@ -20,6 +24,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: mycloud_frontend
+    labels:
+      - "app=mycloud"
+      - "service=frontend"
     ports:
       - "9091:80"
     environment:
@@ -30,6 +38,9 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mycloud_mysql
+    labels:
+      - "app=mycloud"
+      - "service=mysql"
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
