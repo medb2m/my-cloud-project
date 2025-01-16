@@ -30,6 +30,9 @@ services:
       - "service=frontend"
     ports:
       - "9091:80"
+    volumes:
+      - ./frontend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/dist/frontend:/usr/share/nginx/html/browser
     environment:
       API_URL: "http://backend:8089/api"
     networks:
