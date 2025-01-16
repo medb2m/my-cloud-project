@@ -99,13 +99,6 @@ pipeline {
                 docker network rm mycloud_app_network || true
                 '''
 
-                // Step 3: Free up ports (if needed)
-                echo 'Freeing up ports...'
-                sh '''
-                sudo lsof -i :8087 && sudo kill $(sudo lsof -t -i :8087) || true
-                sudo lsof -i :9091 && sudo kill $(sudo lsof -t -i :9091) || true
-                sudo lsof -i :3308 && sudo kill $(sudo lsof -t -i :3308) || true
-                '''
 
                 // Step 4: Bring up the containers
                 echo 'Starting containers with Docker Compose...'
