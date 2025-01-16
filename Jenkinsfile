@@ -42,19 +42,16 @@ pipeline {
             }
         }
 
-        stage('Run Backend and Frontend Tests') {
-            when {
-                expression {
-                    return false // Disable test for now
-                }
-            }
+        stage('Run Backend Tests') {
             steps {
-                echo 'Running Tests...'
+                echo 'Running Backend Tests...'
                 dir('backend') {
                     sh 'mvn test'
                 }
-                dir('frontend') {
-                    sh 'npm test'
+            }
+            post {
+                always {
+                    junit 'backend/target/surefire-reports/*.xml' // Archive backend test results
                 }
             }
         }
