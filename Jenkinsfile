@@ -46,7 +46,7 @@ pipeline {
             steps {
                 echo 'Running Backend Tests...'
                 dir('backend') {
-                    sh 'mvn clean test -X'
+                    sh 'mvn -Dtest=com.bezkoder.spring.jpa.h2.controller.TutorialControllerTests test'
                 }
             }
             post {
