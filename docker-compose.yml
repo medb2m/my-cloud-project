@@ -56,7 +56,7 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - app-network
-    
+
   prometheus:
     image: matrixuv/prometheus_hub:1.0.0
     container_name: mycloud_prometheus
@@ -79,7 +79,7 @@ services:
     networks:
       - app-network
 
-    sonarqube:
+  sonarqube:
     image: matrixuv/sonarqube_hub:1.0.0
     container_name: mycloud_sonarqube
     ports:
