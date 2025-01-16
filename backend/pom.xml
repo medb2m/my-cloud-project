@@ -41,11 +41,6 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<!-- JUnit 5 -->
     <dependency>
         <groupId>org.junit.jupiter</groupId>
@@ -72,7 +67,14 @@
         <artifactId>mockito-junit-jupiter</artifactId>
         <version>5.5.0</version> <!-- Use the latest version -->
         <scope>test</scope>
-</dependency>
+    </dependency>
+
+    <!-- Spring Boot Test -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
 	</dependencies>
 	<!-- Nexus -->
 	<distributionManagement>
