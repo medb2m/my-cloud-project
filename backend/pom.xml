@@ -72,7 +72,6 @@
         <artifactId>mockito-junit-jupiter</artifactId>
         <version>5.5.0</version> <!-- Use the latest version -->
         <scope>test</scope>
-    </dependency>
 </dependency>
 	</dependencies>
 	<!-- Nexus -->
