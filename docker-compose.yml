@@ -59,6 +59,7 @@ services:
 
 volumes:
   mysql-data:
+  nginx-config:
 
 networks:
   app-network:
