@@ -95,6 +95,10 @@ pipeline {
                         docker rm -f mycloud_backend || true
                         docker rm -f mycloud_frontend || true
                         docker rm -f mycloud_mysql || true
+                        docker rm -f mycloud_prometheus || true
+                        docker rm -f mycloud_grafana || true
+                        docker rm -f mycloud_nexus || true
+                        docker rm -f mycloud_sonarqube || true
                         '''
 
                         // Step 2: Remove the network (if it exists)
