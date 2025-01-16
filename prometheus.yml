@@ -5,4 +5,4 @@ scrape_configs:
   - job_name: 'spring-boot-app'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['mycloud_main_backend:8087']  # Replace with your container name and port.
+      - targets: ['mycloud_backend:8089']  # Replace with your container name and port.
