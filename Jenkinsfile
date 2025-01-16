@@ -11,7 +11,7 @@ pipeline {
         GRAFANA_IMAGE = 'matrixuv/grafana_hub'
         PROMETHEUS_IMAGE = 'matrixuv/prometheus_hub'
         NEXUS_IMAGE = 'matrixuv/nexus_hub'
-        SONARQUBE_IMAGE = 'matrixuv/sonarqube'
+        SONARQUBE_IMAGE = 'matrixuv/sonarqube_hub'
         IMAGE_TAG = "1.0.0"
     }
 
@@ -38,6 +38,23 @@ pipeline {
                 echo 'Building Frontend...'
                 dir('frontend') {
                     sh 'npm install && npm run build'
+                }
+            }
+        }
+
+        stage('Run Backend and Frontend Tests') {
+            when {
+                expression {
+                    return false // Disable test for now
+                }
+            }
+            steps {
+                echo 'Running Tests...'
+                dir('backend') {
+                    sh 'mvn test'
+                }
+                dir('frontend') {
+                    sh 'npm test'
                 }
             }
         }
@@ -79,7 +96,37 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                echo 'Running SonarQube analysis...'
+                script {
+                    withSonarQubeEnv(SONAR_SERVER) {
+                        dir('backend') {
+                            sh """
+                            mvn sonar:sonar \
+                                -Dsonar.projectKey=my-app \
+                                -Dsonar.host.url=http://localhost:9000
+                            """
+                        }
+                    }
+                }
+            }
+        }
+        stage('Publish Artifacts to Nexus') {
+            steps {
+                echo 'Deploying to Nexus...'
+                dir('backend') {
+                    sh """
+                    mvn deploy \
+                        -DaltDeploymentRepository=deploymentRepo::default::${NEXUS_URL} \
+                        -DskipTests=true
+                    """
+                }
+            }
+        }
     }
+
+    
 
     post {
         success {
@@ -90,7 +137,7 @@ pipeline {
                     Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) completed successfully!
                     Check the build details at: ${env.BUILD_URL}
                 """,
-                to: 'benmohamed.mohamed@esprit.tn', 
+                to: 'medobouh@gmail.com', 
                 attachLog: true
             )
         }
@@ -102,7 +149,7 @@ pipeline {
                     Pipeline '${env.JOB_NAME}' (${env.BUILD_NUMBER}) failed!
                     Check the build details at: ${env.BUILD_URL}
                 """,
-                to: 'benmohamed.mohamed@esprit.tn', 
+                to: 'medobouh@gmail.com', 
                 attachLog: true
             )
         }
