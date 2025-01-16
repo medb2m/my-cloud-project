@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copy the built frontend files to /usr/share/nginx/html/browser
-COPY --from=builder /app/dist/frontend /usr/share/nginx/html/browser
+COPY --from=builder /app/dist/frontend /usr/share/nginx/html
 
 # Copy the custom Nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
