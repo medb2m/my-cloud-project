@@ -74,8 +74,6 @@ pipeline {
                         docker.build("${BACKEND_IMAGE}:${IMAGE_TAG}", 'backend/').push()
                         docker.build("${FRONTEND_IMAGE}:${IMAGE_TAG}", 'frontend/').push()
                         sh "docker pull ${MYSQL_IMAGE}:${IMAGE_TAG} && docker tag ${MYSQL_IMAGE}:${IMAGE_TAG} ${MYSQL_IMAGE}:${IMAGE_TAG} && docker push ${MYSQL_IMAGE}:${IMAGE_TAG}"
-                        sh "docker pull ${GRAFANA_IMAGE}:${IMAGE_TAG} && docker tag ${GRAFANA_IMAGE}:${IMAGE_TAG} ${GRAFANA_IMAGE}:${IMAGE_TAG} && docker push ${GRAFANA_IMAGE}:${IMAGE_TAG}"
-                        sh "docker pull ${PROMETHEUS_IMAGE}:${IMAGE_TAG} && docker tag ${PROMETHEUS_IMAGE}:${IMAGE_TAG} ${PROMETHEUS_IMAGE}:${IMAGE_TAG} && docker push ${PROMETHEUS_IMAGE}:${IMAGE_TAG}"
          
                     }
                 }
