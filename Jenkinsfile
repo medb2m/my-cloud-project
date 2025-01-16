@@ -80,22 +80,55 @@ pipeline {
         }
 
         stage('Deploy with Docker Compose') {
-            steps {
-                echo 'Deploying with Docker Compose...'
-                script {
-                    try {
-                        sh '''
-                        docker-compose -f docker-compose.yml down || true
-                        docker-compose -f docker-compose.yml up -d
-                        '''
-                    } catch (Exception e) {
-                        echo "Deployment failed: ${e.message}"
-                        currentBuild.result = 'FAILURE'
-                        throw e
-                    }
-                }
+    steps {
+        echo 'Deploying with Docker Compose...'
+        script {
+            try {
+                // Step 1: Stop and remove existing containers
+                echo 'Stopping and removing existing containers...'
+                sh '''
+                docker-compose -f docker-compose.yml down || true
+                docker rm -f mycloud_backend || true
+                docker rm -f mycloud_frontend || true
+                docker rm -f mycloud_mysql || true
+                '''
+
+                // Step 2: Remove the network (if it exists)
+                echo 'Removing existing network...'
+                sh '''
+                docker network rm mycloud_app_network || true
+                '''
+
+                // Step 3: Free up ports (if needed)
+                echo 'Freeing up ports...'
+                sh '''
+                sudo lsof -i :8087 && sudo kill $(sudo lsof -t -i :8087) || true
+                sudo lsof -i :9091 && sudo kill $(sudo lsof -t -i :9091) || true
+                sudo lsof -i :3308 && sudo kill $(sudo lsof -t -i :3308) || true
+                '''
+
+                // Step 4: Bring up the containers
+                echo 'Starting containers with Docker Compose...'
+                sh '''
+                docker-compose -f docker-compose.yml up -d
+                '''
+
+                // Step 5: Wait for MySQL to be ready
+                echo 'Waiting for MySQL to be ready...'
+                sh '''
+                while ! docker exec mycloud_mysql mysqladmin ping -h localhost -u root -proot --silent; do
+                    sleep 5
+                done
+                echo "MySQL is ready!"
+                '''
+            } catch (Exception e) {
+                echo "Deployment failed: ${e.message}"
+                currentBuild.result = 'FAILURE'
+                throw e
             }
         }
+    }
+}
         stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube analysis...'
