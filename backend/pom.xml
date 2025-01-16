@@ -65,7 +65,7 @@
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-junit-jupiter</artifactId>
-        <version>5.5.0</version> <!-- Use the latest version -->
+        <version>5.9.3</version>
         <scope>test</scope>
     </dependency>
 
@@ -111,6 +111,7 @@
             <version>3.1.2</version> <!-- Use the latest version -->
             <configuration>
                 <includes>
+                    <include>**/*Test.java</include>
                     <include>**/*Tests.java</include>
                 </includes>
             </configuration>
