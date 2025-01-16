@@ -100,13 +100,13 @@ pipeline {
                 '''
 
 
-                // Step 4: Bring up the containers
+                // Step 3: Bring up the containers
                 echo 'Starting containers with Docker Compose...'
                 sh '''
                 docker-compose -f docker-compose.yml up -d
                 '''
 
-                // Step 5: Wait for MySQL to be ready
+                // Step 4: Wait for MySQL to be ready
                 echo 'Waiting for MySQL to be ready...'
                 sh '''
                 while ! docker exec mycloud_mysql mysqladmin ping -h localhost -u root -proot --silent; do
