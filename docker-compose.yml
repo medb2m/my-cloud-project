@@ -56,8 +56,9 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - app-network
+    
   prometheus:
-    image: prom/prometheus:latest
+    image: matrixuv/prometheus:1.0.0
     container_name: mycloud_prometheus
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
@@ -67,7 +68,7 @@ services:
       - app-network
 
   grafana:
-    image: grafana/grafana:latest
+    image: matrixuv/grafana:1.0.0
     container_name: mycloud_grafana
     ports:
       - "3000:3000"
@@ -78,8 +79,34 @@ services:
     networks:
       - app-network
 
+    sonarqube:
+    image: matrixuv/sonarqube:1.0.0
+    container_name: mycloud_sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    networks:
+      - app-network
+
+  nexus:
+    image: matrixuv/nexus_hub:1.0.0
+    container_name: mycloud_nexus
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+    networks:
+      - app-network
+
 volumes:
   mysql-data:
+  sonarqube_data:
+  sonarqube_extensions:
+  nexus-data:
 
 networks:
   app-network:
