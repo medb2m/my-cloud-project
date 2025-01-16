@@ -33,6 +33,10 @@ public class Tutorial {
     return id;
   }
 
+  public void setId(long id) {  // Add this method
+        this.id = id;
+  }
+
   public String getTitle() {
     return title;
   }
