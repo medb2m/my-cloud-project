@@ -79,28 +79,6 @@ services:
     networks:
       - app-network
 
-  sonarqube:
-    image: matrixuv/sonarqube_hub:1.0.0
-    container_name: mycloud_sonarqube
-    ports:
-      - "9000:9000"
-    environment:
-      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-    networks:
-      - app-network
-
-  nexus:
-    image: matrixuv/nexus_hub:1.0.0
-    container_name: mycloud_nexus
-    ports:
-      - "8081:8081"
-    volumes:
-      - nexus-data:/nexus-data
-    networks:
-      - app-network
 
 volumes:
   mysql-data:
