@@ -30,9 +30,6 @@ services:
       - "service=frontend"
     ports:
       - "9091:80"
-    volumes:
-      - nginx-config:/etc/nginx/conf.d
-      - ./frontend/dist/frontend:/usr/share/nginx/html/browser
     environment:
       API_URL: "http://backend:8089/api"
     networks:
@@ -59,7 +56,6 @@ services:
 
 volumes:
   mysql-data:
-  nginx-config:
 
 networks:
   app-network:
