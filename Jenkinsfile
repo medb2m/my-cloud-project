@@ -139,7 +139,7 @@ pipeline {
                             sh """
                             mvn sonar:sonar \
                                 -Dsonar.projectKey=my-app \
-                                -Dsonar.host.url=http://mycloud_sonarqube:9000
+                                -Dsonar.host.url=http://localhost:9000
                             """
                         }
                     }
