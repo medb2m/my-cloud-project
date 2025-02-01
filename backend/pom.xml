@@ -23,6 +23,8 @@
         <java.version>21</java.version>
         <junit.jupiter.version>5.9.0</junit.jupiter.version>
         <maven.surefire.plugin.version>3.1.2</maven.surefire.plugin.version>
+        <sonar.organization>medb2m</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <!-- Dependencies -->
