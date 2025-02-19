@@ -33,6 +33,23 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+                echo 'Running SonarQube analysis...'
+                script {
+                    withSonarQubeEnv(SONAR_SERVER) {
+                        dir('backend') {
+                            sh """
+                            mvn sonar:sonar \
+                                -Dsonar.projectKey=my-app \
+                                -Dsonar.host.url=http://localhost:9000
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Build Frontend') {
             steps {
                 echo 'Building Frontend...'
@@ -123,22 +140,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                echo 'Running SonarQube analysis...'
-                script {
-                    withSonarQubeEnv(SONAR_SERVER) {
-                        dir('backend') {
-                            sh """
-                            mvn sonar:sonar \
-                                -Dsonar.projectKey=my-app \
-                                -Dsonar.host.url=http://localhost:9000
-                            """
-                        }
-                    }
-                }
-            }
-        }
+        
 
         stage('Publish Artifacts to Nexus') {
             steps {
